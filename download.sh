@@ -1,6 +1,6 @@
 #!/bin/bash
 
-home="/home/pi/git/pi-tool"
+home="/home/pi/pi-tool"
 tarballs="tarballs"
 usb="usb"
 filename=$(basename "$1")
@@ -8,6 +8,7 @@ filename=$(basename "$1")
 cd $home
 
 if [ ! -f "$home/$tarballs/$filename" ]; then
+	echo "Downloading tarball"
 	wget $1
 	
 	if [ ! -f "$home/$filename" ]; then
@@ -20,6 +21,7 @@ fi
 
 sudo mount /dev/sda1 $usb
 sudo rm -rf $usb/*.tar.xz*
+echo "Copying tarball to USB"
 sudo cp $tarballs/$filename $usb
 sudo umount $usb
 
